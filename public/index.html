@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Book Booth</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="libraries/bootstrap/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="libraries/bootstrap/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="libraries/bootstrap/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="libraries/angular/angular.min.js"></script>
+    <script src="libraries/angular/angular-route.js"></script>
+
+    <script src="index.controller.js"></script>
+
+    <script src="directives.js"></script>
+    <script src="services/user.js"></script>
+
+    <script src="routes/route.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Book Store</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#contact" ng-show="logged()">Sell/Donate</a></li>
+                    <li><a href="#contact">Find Books</a></li>
+                    <li><a href="#contact">Find Peoples</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a data-toggle="modal" data-target="#myModalSignIn" ng-hide="logged()">Sign In</a></li>
+                    <li><a data-toggle="modal" data-target="#myModalSignUp" ng-hide="logged()">Sign Up</a></li>
+                    <li class="dropdown" ng-show="logged()">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user().first_name + " " + user().last_name}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Profile</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Friends</a></li>
+                            <li><a href="#" ng-click="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <!-- MODALSSSSSSSSSSSSSSSSSSs -->
+    <!-- Sign In -->
+    <!-- Trigger the modal with a button -->
+
+    <!-- Modal -->
+    <div id="myModalSignIn" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Sign In</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="sign_in_form">
+                        <div class="form-group">
+                            <input class="form-control" ng-model ="login_details.email" type ="email" placeholder="Email" required />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" ng-model ="login_details.password" type = "password" placeholder="Password"required/>
+                        </div>
+
+                        <div class="form-group" ng-show="error_username">
+                            <a>* Wrong email/password</a>
+                        </div>
+
+                        <div class="form-group" ng-show="error_other">
+                            <a>* Something unexpected happend. Please try again</a>
+                        </div>
+
+                        <div class="form-group" ng-show="alert_success">
+                            <a>* Logged in Successfully. Please Wait...</a>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-default form-control" type="submit" ng-click="login(login_details)" ng-disabled="alert_success">Sign In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalSignUp" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Sign Up</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="sign_up_form">
+                        <div class="form-group">
+                            <input class="form-control" ng-model ="register_details.first_name" placeholder="First Name" required minlength="3" maxlength="10" ng-pattern="/^[a-zA-Z0-9]*$/" title="3-10 Alphanumeric charachters"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" ng-model ="register_details.last_name" placeholder="Last Name" required minlength="3" maxlength="10" ng-pattern="/^[a-zA-Z0-9]*$/" title="3-10 Alphanumeric charachters"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" ng-model ="register_details.email" type ="email" placeholder="Email" required />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" ng-model ="register_details.password" type = "password" placeholder="Password"required minlength="3" maxlength="6"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input name="passwordConfirm" class="form-control" ng-model ="c_password" type = "password" placeholder="Confirm Password" required valid-password-c="register_details.password"/>
+                        </div>
+
+                        <div class="form-group" ng-show="error_username">
+                            <a>* Email already in use</a>
+                        </div>
+
+                        <div class="form-group" ng-show="sign_up_form.passwordConfirm.$invalid && sign_up_form.passwordConfirm.$touched">
+                            <a>* Password Not Matched</a>
+                        </div>
+
+                        <div class="form-group" ng-show="alert_success">
+                            <a>* Registered Successfully. Please Wait...</a>
+                        </div>
+
+                        <div class="form-group" ng-show="error_other">
+                            <a>* Something unexpected happend. Please try again</a>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-default form-control" type="submit" ng-click="register(register_details)" ng-disabled="alert_success">Sign Up</button>
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-view></ng-view>
+</body>
+
+</html>
