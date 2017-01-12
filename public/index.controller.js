@@ -27,6 +27,8 @@ app.controller('myCtrl', function($scope, $http, User) {
                 if (response.data.status == "2") {
                     $scope.alert_success = true;
                     User.setUser(response.data.data[0]);
+
+                    setTimeout(function() {$("#myModalSignIn").modal("hide")}, 1000);
                 } else {
                     $scope.error_username = true;
                 }

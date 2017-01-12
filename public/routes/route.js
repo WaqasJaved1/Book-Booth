@@ -3,8 +3,8 @@ angular.module("myApp").config(function($routeProvider) {
         .when("/", {
             templateUrl: "pages/main/main.html"
         })
-        .when("/red", {
-            templateUrl: "pages/testing/red.html"
+        .when("/profile", {
+            templateUrl: "pages/profile/profile.html"
         }).otherwise({
             redirectTo: '/'
         });
