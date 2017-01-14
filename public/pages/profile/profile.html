@@ -1,3 +1,33 @@
 <div class="container">
-	This is my profile
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card w3-card-12 dp">
+                <div class="hovereffect">
+                    <div class="w3-center">
+                        <img ng-src="{{user().image}}">
+                        <div class="w3-center">
+                            <h4 class="title">{{user().first_name + " " + user().last_name}}</h4>
+                        </div>
+                        <div class="overlay">
+                        	
+                            <div class="info">
+                            	<form id="uploadForm" class=" edit-item" enctype="multipart/form-data" action="node_upload_photo" method="post">
+                            		<input type="file" class="w3-btn w3-teal" name="profile_picture" />
+                            		<input type="submit" class="w3-btn w3-teal" value="Upload Image" name="submit" />
+                        		</form>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <button class="w3-btn w3-teal" ng-hide="friend_only()">Add friend</button>
+                <button class="w3-btn w3-teal" ng-show="friend_only()">Message</button>
+            </div>
+        </div>
+
+        <div class="col-md-8 container">
+        	This is working.
+        </div>
+    </div>
 </div>

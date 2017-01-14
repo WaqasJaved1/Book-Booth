@@ -10,7 +10,9 @@
         "cfenv": "1.0.x",
         "express-session":"*",
         "body-parser":"*",
-        "mysql":"*"
+        "mysql":"*",
+        "multer":"*",
+        "fs":"*"
     },
     "repository": {},
     "engines": {

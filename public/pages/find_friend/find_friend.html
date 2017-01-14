@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron w3-teal">
+            <h2>Find Friends Here</h2>
+            <br>
+            <div class="input-group input-group-lg">
+                <form name="search_form">
+                    <input type="text" class="form-control" placeholder="Enter First Name" ng-model="search.first_name" required>
+                    <input type="text" class="form-control" placeholder="Enter Last Name" ng-model="search.last_name" required>
+                    <button class="btn w3-black" ng-click="search_people(search)" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container" ng-show="peoples.length == 0">
+        <h2>*No Result To Show</h2>
+    </div>
+    <div class="container w3-center">
+        <div class="card w3-card-12 dp" ng-repeat="x in peoples">
+            <div class="hovereffect">
+                <div class="w3-center">
+                    <img check-image ng-src="{{'/images/avatars/profile_picture-' + x.email+'.png'}}">
+                    <div class="w3-center">
+                        <h4 class="title">{{x.first_name + " " + x.last_name}}</h4>
+                        <h4 class="title">{{x.email}}</h4>
+                    </div>
+                    <div class="overlay">
+                        <div class="info">
+                            <input type="submit" class="w3-btn w3-teal" value="Follow" ng-click="follow(x.email)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+</div>

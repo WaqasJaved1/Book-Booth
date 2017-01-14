@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="container heading_showcase">
+        <h3>Following</h3>
+    </div>
+
+    <div class="container" ng-show="following.length == 0">
+        <h2>*Nothing To Show</h2>
+    </div>
+
+    <div class="container w3-center">
+        <div class="card w3-card-12 dp" ng-repeat="x in following">
+            <div class="hovereffect">
+                <div class="w3-center">
+                    <img check-image ng-src="{{'/images/avatars/profile_picture-' + x.email+'.png'}}">
+                    <div class="w3-center">
+                        <h4 class="title">{{x.first_name + " " + x.last_name}}</h4>
+                        <h4 class="title">{{x.email}}</h4>
+                    </div>
+                    <div class="overlay">
+                        <div class="info">
+                            <!-- Hover -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

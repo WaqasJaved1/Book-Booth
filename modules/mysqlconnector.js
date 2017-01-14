@@ -13,7 +13,7 @@ var pool = mysql.createPool({
 
 module.exports = {
 
-    executeQuery:function(query, callback, res) {
+    executeQuery:function(query, callback, res, req) {
         pool.getConnection(function(err, connection) {
         	data = {}
 
@@ -39,7 +39,7 @@ module.exports = {
                 	}
                 }
 
-                callback(res, data, { rows: rows });
+                callback(res, data, { rows: rows }, req);
 
             });
             connection.on('error', function(err) {

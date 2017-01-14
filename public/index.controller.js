@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ["ngRoute"]);
 
-app.controller('myCtrl', function($scope, $http, User) {
+app.controller('myCtrl', function($scope, $http, User, $location, Chat) {
 
     initialize = function() {
       $scope.error_username = false;
@@ -12,6 +12,7 @@ app.controller('myCtrl', function($scope, $http, User) {
     $scope.logged = function(){return User.Logged();}
 
     initialize();
+    User.getProfileData();
 
     $scope.login = function(data) {
         initialize();
@@ -49,7 +50,9 @@ app.controller('myCtrl', function($scope, $http, User) {
                 // $("#myModalSignIn").modal("hide")
                 console.log(response.data)
                 if (response.data.status == "2") {
-
+                    User.getProfileData();
+                    setTimeout(function() {$("#myModalSignUp").modal("hide")}, 1000);
+                    $location.path( "/profile" );
                     $scope.alert_success = true;
                 } else if(response.data.status == "1"){
                     $scope.error_username = true;
@@ -63,7 +66,7 @@ app.controller('myCtrl', function($scope, $http, User) {
     }
 
     $scope.logout = function(){
-        initialize();"ngRoute"
+        initialize();
         User.logout();
     }
 

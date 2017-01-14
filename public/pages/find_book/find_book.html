@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron w3-teal">
+            <h2>Find Books Here</h2>
+            <br>
+            <div class="input-group input-group-lg">
+                <form name="search_form">
+                    <input type="text" class="form-control" placeholder="Enter Book Title" ng-model="search.title" required aria-describedby="sizing-addon1">
+                    <div class="form-group">
+                        <button class="btn w3-black" ng-click="search_books(search)" type="submit">Search</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <button class="btn w3-black" ng-click="search_books()">See Latest</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" ng-show="books.length == 0">
+        <h2>*No Result To Show</h2>
+    </div>
+    <div class="container w3-center ">
+        <div class="card w3-card-12 wrapper" ng-repeat="x in books">
+            <div class="ribbon-wrapper-green" ng-hide="x.sale">
+                <div class="ribbon-green">Donation</div>
+            </div>
+            <div class="hovereffect">
+                <div class="w3-center">
+                    <img check-image ng-src="{{'/images/books/' + x.email+x.id+'.png'}}">
+                    <div class="w3-center">
+                        <p class="title">{{x.title}}</p>
+                        <p class="author">By: {{x.author}}</p>
+                        <p class="price" ng-show="x.sale"><b>RS {{x.price}}</b></p>
+                        <p class="title"><b>Posted on: {{x.updatetime}}</b></p>
+                    </div>
+                    <div class="overlay w3-teal">
+                        <div style="color: white;margin-top: 30px">
+                            <button class="btn w3-black" data-toggle="modal" data-target="#myModalBookDetails" ng-click="book_details(x)">View Details</button>
+                            <br>
+                            <button class="btn w3-black">Message</button>
+                            <br>
+                            <a class="title">Seller Name: {{x.first_name + " " + x.last_name}}</a>
+                            <br>
+                            <a class="title">Seller Email: {{x.email}}</a>
+                            <br>
+                            <a class="title">Seller Contact: {{x.contact}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+    <div id="myModalBookDetails" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" style="display: inline-block;">Book Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>User Info</label>
+                            <div class="form-group">
+                                <img style="width: 150px;height: 150px;display: inline-block;" src="{{'images/books/'+details.email+details.id+'.png'}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Title: {{details.title}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Author: {{details.author}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Edition: {{details.edition}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Category: {{details.category}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Price: {{details.price}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Category: {{details.cond}}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Seller Info</label>
+
+                            <div class="form-group">
+                                <img style="width: 150px;height: 150px;display: inline-block;" src="{{'images/avatars/profile_picture-'+details.email+'.png'}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Name: {{details.first_name + " " + details.last_name}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Email: {{details.email}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
