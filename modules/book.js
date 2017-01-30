@@ -66,7 +66,6 @@ module.exports = function(app, pool, fs) {
     }
 
     send_data = function(res, data, rows, req) {
-        console.log(rows);
         res.send(data);
     }
 

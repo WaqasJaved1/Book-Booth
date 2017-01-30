@@ -34,6 +34,7 @@ app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("server starting on " + appEnv.url);
 });
 
+//Importing Modules.
 var pool = require('./modules/mysqlconnector.js');
 var route = require('./modules/auth.js')(app, pool, fs);
 var find_friends = require('./modules/find_friends.js')(app, pool);
@@ -41,10 +42,13 @@ var profile_route = require('./modules/profile_routes.js')(app, pool, fs)
 var book = require('./modules/book.js')(app, pool, fs);
 var messages = require('./modules/messages.js')(app, pool);
 
+
+//handle all png bad request only
 app.get('/*.png', function(req, res){
 	res.end("0");
 });
+
+//Send all unhandled routing request to angular app
 app.all('/*', function(req, res){
     res.sendfile('./public/index.html');
 });
-

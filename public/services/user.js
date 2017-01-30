@@ -18,11 +18,12 @@ angular.module('myApp').service('User', function($location, $http) {
             method: 'GET',
             url: '/node_logout'
         }).then(function successCallback(response) {
-            $location.path( "/main" );
+            $location.path( "/" );
 
         }, function errorCallback(response) {
             console.log(response.data)
         });
+        $location.path( "/" );
     }
 
     this.Logged = function() {

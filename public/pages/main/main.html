@@ -5,21 +5,29 @@
     
     <!--Card-->
     <div class="showcase">
-        <div class="card w3-card-12" ng-repeat="x in [0,1,2,3]">
+        <div class="container w3-center ">
+        <div class="card w3-card-12 wrapper" ng-repeat="x in main_books">
+            <div class="ribbon-wrapper-green" ng-hide="x.sale">
+                <div class="ribbon-green">Donation</div>
+            </div>
             <div class="hovereffect">
                 <div class="w3-center">
-                    <img src="images/covers/cover-1.jpg">
+                    <img check-image ng-src="{{'/images/books/' + x.email+x.id+'.png'}}">
                     <div class="w3-center">
-                        <p class="title">Now You are thinking</p>
-                        <p class="author">By: Jk Rowling</p>
-                        <p class="price"><b>RS 300</b></p>
+                        <p class="title">{{x.title}}</p>
+                        <p class="author">By: {{x.author}}</p>
+                        <p class="price" ng-show="x.sale"><b>RS {{x.price}}</b></p>
+                        <p class="title"><b>Posted on: {{x.updatetime}}</b></p>
                     </div>
-                    <div class="overlay">
-                        <a class="info" href="#">View Details</a>
+                    <div class="overlay w3-teal">
+                        <div style="color: white;margin-top: 30px">
+                            <a class="title">Login To View Details.</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <div class="container heading_showcase">

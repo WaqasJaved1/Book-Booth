@@ -38,7 +38,7 @@
                         <div style="color: white;margin-top: 30px">
                             <button class="btn w3-black" data-toggle="modal" data-target="#myModalBookDetails" ng-click="book_details(x)">View Details</button>
                             <br>
-                            <button class="btn w3-black">Message</button>
+                            <button class="btn w3-black" ng-click="short_message(x.email)">Message</button>
                             <br>
                             <a class="title">Seller Name: {{x.first_name + " " + x.last_name}}</a>
                             <br>

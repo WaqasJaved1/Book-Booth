@@ -1,13 +1,13 @@
 module.exports = function(app, pool, fs) {
 
     app.post('/node_login', function(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         query = "SELECT first_name, last_name,email From users where email = '" + req.body.email + "' and password = '" + req.body.password + "';";
         pool.executeQuery(query, login, res, req)
     });
 
     app.post('/node_register', function(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
 
         query = "insert into users(first_name, last_name, email, password) value ('" + req.body.first_name + "', '" + req.body.last_name + "', '" + req.body.email + "', '" + req.body.password + "')"
         pool.executeQuery(query, register, res, req)
@@ -36,7 +36,7 @@ module.exports = function(app, pool, fs) {
 
 
 
-        console.log("Registered Successfully");
+        // console.log("Registered Successfully");
     }
 
     login = function(res, data, rows, req) {
@@ -50,10 +50,10 @@ module.exports = function(app, pool, fs) {
             sess = req.session;
             path = './public/images/avatars/profile_picture-' + sess.email + '.png'
             if (fs.existsSync(path)) {
-                console.log('true');
+                // console.log('true');
                 data['data'][0]['image'] = '/images/avatars/profile_picture-' + sess.email + '.png';
             } else {
-                console.log('false');
+                // console.log('false');
 
                 data['data'][0]['image'] = '/images/avatars/default.jpg';
             }
@@ -61,13 +61,13 @@ module.exports = function(app, pool, fs) {
 
 
         res.send(data);
-        console.log("Logged in Successfully")
+        // console.log("Logged in Successfully")
     }
 
     set_session = function(req) {
         sess = req.session;
         sess.email = req.body.email;
-        console.log(sess);
+        // console.log(sess);
     }
 
     logout = function(req) {
@@ -75,6 +75,6 @@ module.exports = function(app, pool, fs) {
         sess.email = null;
         sess.destroy();
 
-        console.log("Logged out Successfully:::", sess)
+        // console.log("Logged out Successfully:::", sess)
     }
 }
